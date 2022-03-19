@@ -1,0 +1,467 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+.offscreen {
+	position: absolute;
+	left: -10000px;
+}
+
+.skip-link {
+	position: absolute;
+	top: -999px;
+	left: 0;
+	background: rgba(0, 0, 0, 0.15);
+	padding: 14px;
+	z-index: 1;
+	color: #d9d9d9;
+}
+
+.skip-link:focus,
+.skip-link:active {
+	top: auto;
+	left: auto;
+}
+
+.zero-vis {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.fade-in {
+	visibility: visible;
+	opacity: 1;
+	-webkit-animation-name: fadeInOpacity;
+	animation-name: fadeInOpacity;
+	-webkit-animation-iteration-count: 1;
+	animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease-in;
+	animation-timing-function: ease-in;
+	-webkit-animation-duration: 1.5s;
+	animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.button {
+	min-width: 3rem;
+	min-height: 3rem;
+	background-color: transparent;
+	border: none;
+	border-radius: 50%;
+	outline: none;
+	color: aliceblue;
+	font-size: 1.25rem;
+	font-weight: 900;
+}
+@media only screen and (min-width: 768px) {
+	.button {
+		font-size: 1.5rem;
+	}
+}
+
+.button:hover {
+	cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+	-webkit-box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15),
+		inset -5px -2px 5px rgba(0, 0, 0, 0.15);
+	box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15),
+		inset -5px -2px 5px rgba(0, 0, 0, 0.15);
+	border-color: #d9d9d9;
+}
+
+html {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	-webkit-box-sizing: inherit;
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-height: 100vh;
+	background-color: #d9d9d9;
+	background-image: url('../img/bg_main.jpg');
+	background-size: cover;
+	font-size: 16px;
+	font-family: 'Raleway', sans-serif;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+main {
+	position: relative;
+	width: 100%;
+	max-width: 450px;
+	max-height: 1050px;
+	margin: 0.5rem 0.15rem;
+	padding: 0.5rem;
+	background-size: cover;
+	background-blend-mode: overlay;
+	border-radius: 0.875rem;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	color: #d9d9d9;
+	border-radius: 0.875rem;
+	-webkit-box-shadow: 1px 1px 2.5px rgba(0, 0, 0, 0.15);
+	box-shadow: 1px 1px 2.5px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+}
+
+section {
+	padding: 1.5rem 0;
+}
+
+.none {
+	display: none;
+}
+
+.block {
+	display: block;
+}
+
+header {
+	max-width: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+}
+header .searchBar {
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	height: -webkit-fit-content;
+	height: -moz-fit-content;
+	height: fit-content;
+	position: relative;
+}
+header .searchBar__text {
+	height: 3rem;
+	width: 3rem;
+	padding: 0.75rem;
+	padding-right: 2.5rem;
+	background-color: #ef486f;
+	border-style: none;
+	border-radius: 1.5rem;
+	outline: none;
+	color: aliceblue;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	-webkit-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+header .searchBar__text:focus {
+	width: 100%;
+	border-bottom: 1px solid #ef486f;
+	border-radius: 0;
+	background-color: transparent;
+	-webkit-transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
+	transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
+}
+header .searchBar__text::-webkit-input-placeholder {
+	color: #d9d9d9;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	font-weight: 300;
+}
+header .searchBar__text::-moz-placeholder {
+	color: #d9d9d9;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	font-weight: 300;
+}
+header .searchBar__text:-ms-input-placeholder {
+	color: #d9d9d9;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	font-weight: 300;
+}
+header .searchBar__text::-ms-input-placeholder {
+	color: #d9d9d9;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	font-weight: 300;
+}
+header .searchBar__text::placeholder {
+	color: #d9d9d9;
+	font-size: 1.125rem;
+	letter-spacing: 2px;
+	font-weight: 300;
+}
+header .searchBar__button {
+	position: absolute;
+	right: 0;
+	width: 3rem;
+	height: 3rem;
+	background-color: transparent;
+	border-radius: 50%;
+	border-style: none;
+	outline: none;
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: aliceblue;
+	cursor: pointer;
+}
+header .searchBar__button:focus ~ .searchBar__text {
+	width: 100%;
+	background-color: transparent;
+	border-bottom: 1px solid #ef486f;
+	border-radius: 0;
+	-webkit-transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
+	transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
+}
+
+.location {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+.location__name {
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: aliceblue;
+}
+.location__date {
+	font-size: 1.5rem;
+	font-weight: 300;
+	color: #d9d9d9;
+}
+
+.CurrentWeather {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	color: aliceblue;
+}
+.CurrentWeather .currentTemp {
+	font-weight: 700;
+	font-size: 4.5rem;
+}
+.CurrentWeather .icon {
+	font-size: 2rem;
+}
+.CurrentWeather .desc {
+	font-weight: 300;
+}
+.CurrentWeather .temp {
+	padding: 1rem 0 5rem;
+	font-size: 1.25rem;
+	color: #d9d9d9;
+}
+.CurrentWeather button {
+	font-size: 1.875rem;
+	color: #ef486f;
+	background-color: aliceblue;
+}
+
+.DailyWeather {
+	width: 20rem;
+	margin: auto;
+	padding-bottom: 3rem;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 1.55rem;
+	overflow-x: auto;
+}
+.DailyWeather::-webkit-scrollbar {
+	display: none;
+}
+.DailyWeather .dailyItem {
+	width: -webkit-max-content;
+	width: -moz-max-content;
+	width: max-content;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.DailyWeather .dailyItem .icon {
+	font-size: 1.75rem;
+}
+.DailyWeather .dailyItem .icon.active {
+	color: #ef486f;
+}
+.DailyWeather .dailyItem .temp {
+	padding: 0.5rem 0;
+	color: #d9d9d9;
+	font-size: 1rem;
+}
+.DailyWeather .dailyItem .day {
+	font-weight: 400;
+}
+@media only screen and (min-width: 1024px) {
+	.DailyWeather {
+		margin-bottom: 2rem;
+		padding: 2rem 0;
+	}
+	.DailyWeather::-webkit-scrollbar {
+		display: block;
+		height: 0.35rem;
+		border-radius: 0.5rem;
+		background-color: rgba(242, 242, 242, 0.15);
+	}
+	.DailyWeather::-webkit-scrollbar-thumb {
+		background-color: #d9d9d9;
+		border-radius: 0.5rem;
+	}
+}
+
+nav {
+	position: absolute;
+	bottom: -100%;
+	width: calc(100% - 1rem);
+	padding: 0.75rem;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+	-webkit-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+nav.show {
+	bottom: 1rem;
+	background-position: center;
+	background-blend-mode: overlay;
+	border-radius: 2rem;
+}
+nav button.button {
+	height: 3.5rem;
+	width: 3.5rem;
+	font-size: 2rem;
+	background-color: #ef486f;
+}
+
+.openBtn {
+	position: absolute;
+	bottom: -1.5rem;
+	left: 50%;
+	width: 3rem;
+	height: 3rem;
+	padding-top: 0.5rem;
+	background-color: aliceblue;
+	border-style: none;
+	border-radius: 50%;
+	font-size: 1rem;
+	color: #ef486f;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+.openBtn i {
+	-webkit-transition: -webkit-transform 0.2s ease-out;
+	transition: -webkit-transform 0.2s ease-out;
+	transition: transform 0.2s ease-out;
+	transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
+}
+.openBtn.show {
+	bottom: 0.1rem;
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+}
+.openBtn.show i {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.rain {
+	background-color: rgba(34, 95, 145, 0.85);
+	background-image: url('../img/rain.jpg');
+}
+
+.snow {
+	background-color: rgba(29, 98, 103, 0.85);
+	background-image: url('../img/snow.jpg');
+}
+
+.night {
+	background-color: rgba(50, 23, 115, 0.85);
+	background-image: url('../img/night.jpg');
+}
+
+.fog {
+	background-color: rgba(77, 91, 88, 0.85);
+	background-image: url('../img/fog.jpg');
+}
+
+.sun {
+	background-color: rgba(64, 64, 64, 0.85);
+	background-image: url('../img/sun.jpg');
+}
