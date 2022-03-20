@@ -7,8 +7,8 @@ export const useFetchWeather = urlParams => {
 	const [error, setError] = useState('')
 	const [weatherData, setWeatherData] = useState(null)
 
-	const { lat, long, units } = urlParams
-	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,alerts&units=${units}&appid=${REACT_APP_WEATHER_API_KEY}`
+	const { lat, long, unit } = urlParams
+	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,alerts&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
 
 	const fetchWeather = useCallback(async () => {
 		setLoading(true)
