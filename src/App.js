@@ -1,22 +1,33 @@
-import Button from './components/parts/Button'
-import { Header, Location, Current, Daily, Nav } from './components'
-import { MdKeyboardArrowUp } from 'react-icons/md'
+import { useEffect } from 'react'
+import Message from './components/parts/Message'
+import { Header, Location, Current, Daily, Footer, Loader } from './components'
+import { useAppContext } from './context'
+import { getWeatherClass } from './utils'
 
 function App() {
+	const { weatherData, loading, message, setMessage } = useAppContext()
+	useEffect(() => {
+		document.body.style.backgroundImage = 'url(/img/bg_main.jpg)'
+	}, [])
+
+	if (!weatherData || loading) {
+		return <Loader />
+	}
+
+	const weather = getWeatherClass(weatherData.current.weather[0].icon)
+
 	return (
-		<main className='rain'>
+		<main
+			className={weather}
+			style={{ backgroundImage: `url(/img/${weather}.jpg)` }}
+		>
 			<h1 className='offscreen'>Weather Forecast</h1>
+			<Message message={message} setMessage={setMessage} />
 			<Header />
 			<Location />
 			<Current />
 			<Daily />
-			<Button
-				className='openBtn show fade-in'
-				title='Opens app options'
-				aria-label='Opens useful options like home location and save location'
-				element={<MdKeyboardArrowUp />}
-			/>
-			<Nav />
+			<Footer />
 		</main>
 	)
 }

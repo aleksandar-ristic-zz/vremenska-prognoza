@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { HiOutlineRefresh } from 'react-icons/hi'
 
-const Button = ({ className, title, ariaLabel, element, ...rest }) => {
+const Button = ({ classes, title, ariaLabel, element, handleFunction }) => {
 	const [clicked, setClicked] = useState(false)
 
 	useEffect(() => {
@@ -16,13 +16,16 @@ const Button = ({ className, title, ariaLabel, element, ...rest }) => {
 
 	const handleClick = () => {
 		setClicked(true)
+
+		if (typeof handleFunction === 'function') {
+			handleFunction()
+		}
 	}
 	return (
 		<button
-			class={className}
+			className={classes}
 			title={title}
-			ariaLabel={ariaLabel}
-			{...rest}
+			aria-label={ariaLabel}
 			onClick={handleClick}
 		>
 			{clicked ? <HiOutlineRefresh className='spin' /> : element}

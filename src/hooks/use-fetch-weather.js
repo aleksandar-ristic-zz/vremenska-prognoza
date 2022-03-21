@@ -7,8 +7,10 @@ export const useFetchWeather = urlParams => {
 	const [error, setError] = useState('')
 	const [weatherData, setWeatherData] = useState(null)
 
-	const { lat, long, unit } = urlParams
-	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,alerts&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
+	const { lat, lon, unit } = urlParams
+	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
+
+	const reverseUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${REACT_APP_WEATHER_API_KEY}`
 
 	const fetchWeather = useCallback(async () => {
 		setLoading(true)
@@ -17,11 +19,13 @@ export const useFetchWeather = urlParams => {
 			console.error(error.message)
 		)
 
-		if (response) {
-			const data = response.data.results
+		const locationName = await axios(reverseUrl).catch(error =>
+			console.error(error.message)
+		)
 
-			if (data.length > 0) {
-				setWeatherData(data)
+		if (response) {
+			if (response.status === 200 && locationName.status === 200) {
+				setWeatherData({ ...response.data, name: locationName.data[0].name })
 			} else {
 				setError('There is no current forecast. Please try again later.')
 			}
@@ -33,8 +37,10 @@ export const useFetchWeather = urlParams => {
 	}, [url])
 
 	useEffect(() => {
+		if (!lat || !lon) return
 		fetchWeather()
-	}, [fetchWeather])
+	}, [fetchWeather, lat, lon])
+	console.log(weatherData)
 
 	return { loading, error, weatherData }
 }

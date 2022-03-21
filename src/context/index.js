@@ -14,10 +14,10 @@ const AppContext = createContext()
 const newLocation = {
 	name: 'Location',
 	lat: null,
-	long: null
+	lon: null
 }
 
-export const AppProvider = children => {
+export const AppProvider = ({ children }) => {
 	const [message, setMessage] = useState({ type: 'error', message: '' })
 	const [location, setLocation] = useState(newLocation)
 	const [unit, setUnit] = useState('metric')
@@ -34,7 +34,7 @@ export const AppProvider = children => {
 		weatherData
 	} = useFetchWeather({
 		lat: location.lat,
-		long: location.long,
+		lon: location.lon,
 		unit
 	})
 
@@ -43,11 +43,11 @@ export const AppProvider = children => {
 			const newLocation = {
 				lat: position.coords.latitude,
 				lon: position.coords.longitude,
-				name: `Lat:${position.coords.latitude} Long:${position.coords.longitude}`,
-				unit
+				name: `Lat:${position.coords.latitude} Lon:${position.coords.longitude}`
 			}
 
 			setLocation(newLocation)
+			getHomeWeather()
 		}
 
 		const geoError = error => {
@@ -62,7 +62,7 @@ export const AppProvider = children => {
 
 		//* nav promise to get position
 		navigator.geolocation.getCurrentPosition(geoSuccess, geoError)
-	}, [unit])
+	}, [location])
 
 	const getHomeWeather = useCallback(
 		e => {
@@ -78,15 +78,14 @@ export const AppProvider = children => {
 			}
 			if (savedLocation) {
 				const locObj = JSON.parse(savedLocation)
-
 				setLocation(locObj)
 			}
 		},
-		[getGeoWeather]
+		[getGeoWeather, location]
 	)
 
 	const setHomeWeather = () => {
-		if (location.lat && location.long) {
+		if (location.lat && location.lon) {
 			setHomeLocation(location)
 			setMessage({
 				type: 'success',
@@ -117,17 +116,19 @@ export const AppProvider = children => {
 	}, [errorCords, errorData])
 
 	useEffect(() => {
+		if (location.lat && location.lon) return
 		getHomeWeather()
-	}, [getHomeWeather])
+	}, [getHomeWeather, location])
 
 	return (
 		<AppContext.Provider
 			value={{
 				loading,
 				message,
-				setMessage,
+				unit,
 				coords,
 				weatherData,
+				setMessage,
 				getGeoWeather,
 				getHomeWeather,
 				setHomeWeather,

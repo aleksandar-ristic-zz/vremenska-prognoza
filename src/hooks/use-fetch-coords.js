@@ -8,23 +8,23 @@ export const useFetchCoords = params => {
 	const [error, setError] = useState('')
 	const [coords, setCoords] = useState(null)
 
-	const { text, units } = params
+	const { searchText, unit } = params
 	const regex = /^\d+$/g
-	const flag = regex.test(text) ? 'zip' : 'q'
+	const flag = regex.test(searchText) ? 'zip' : 'q'
 
-	const url = `https://api.openweathermap.org/data/2.5/weather?${flag}=${text}&units=${units}&appid=${REACT_APP_WEATHER_API_KEY}`
+	const url = `https://api.openweathermap.org/data/2.5/weather?${flag}=${searchText}&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
 	const encodedUrl = encodeURI(url)
 
 	const fetchLocation = useCallback(async () => {
 		setLoading(true)
 
-		const response = await axios(encodedUrl)
+		const response = await axios(encodedUrl).catch(error =>
+			console.error(error.message)
+		)
 
 		if (response) {
-			const data = response.data.results
-
-			if (data.length > 0) {
-				setCoords(data)
+			if (response.status === 200) {
+				console.log(response)
 			} else {
 				setError('Cannot get your location. Please try again later.')
 			}
@@ -35,8 +35,9 @@ export const useFetchCoords = params => {
 	}, [encodedUrl])
 
 	useEffect(() => {
+		if (!searchText) return
 		fetchLocation()
-	}, [fetchLocation])
+	}, [fetchLocation, searchText])
 
 	return { loading, error, coords }
 }

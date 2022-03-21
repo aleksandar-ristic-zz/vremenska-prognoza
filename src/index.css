@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+
+:root {
+	--accent-color: #ef476f;
+}
+
 .offscreen {
 	position: absolute;
 	left: -10000px;
@@ -65,6 +70,7 @@
 	color: aliceblue;
 	font-size: 1.25rem;
 	font-weight: 900;
+	line-height: 100%;
 }
 @media only screen and (min-width: 768px) {
 	.button {
@@ -102,7 +108,6 @@ html {
 body {
 	min-height: 100vh;
 	background-color: #d9d9d9;
-	background-image: url('../img/bg_main.jpg');
 	background-size: cover;
 	font-size: 16px;
 	font-family: 'Raleway', sans-serif;
@@ -172,6 +177,7 @@ header .searchBar {
 	width: -webkit-fit-content;
 	width: -moz-fit-content;
 	width: fit-content;
+	max-width: 270px;
 	height: -webkit-fit-content;
 	height: -moz-fit-content;
 	height: fit-content;
@@ -180,9 +186,8 @@ header .searchBar {
 header .searchBar__text {
 	height: 3rem;
 	width: 3rem;
-	padding: 0.75rem;
-	padding-right: 2.5rem;
-	background-color: #ef486f;
+	padding: 0.75rem 3rem 0.75rem 0;
+	background-color: var(--accent-color);
 	border-style: none;
 	border-radius: 1.5rem;
 	outline: none;
@@ -194,7 +199,7 @@ header .searchBar__text {
 }
 header .searchBar__text:focus {
 	width: 100%;
-	border-bottom: 1px solid #ef486f;
+	border-bottom: 1px solid var(--accent-color);
 	border-radius: 0;
 	background-color: transparent;
 	-webkit-transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
@@ -239,15 +244,16 @@ header .searchBar__button {
 	border-radius: 50%;
 	border-style: none;
 	outline: none;
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	color: aliceblue;
 	cursor: pointer;
+	line-height: 100%;
 }
 header .searchBar__button:focus ~ .searchBar__text {
 	width: 100%;
 	background-color: transparent;
-	border-bottom: 1px solid #ef486f;
+	border-bottom: 1px solid var(--accent-color);
 	border-radius: 0;
 	-webkit-transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
 	transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
@@ -312,7 +318,7 @@ header .searchBar__button:focus ~ .searchBar__text {
 }
 .CurrentWeather button {
 	font-size: 1.875rem;
-	color: #ef486f;
+	color: var(--accent-color);
 	background-color: aliceblue;
 }
 
@@ -347,7 +353,7 @@ header .searchBar__button:focus ~ .searchBar__text {
 	font-size: 1.75rem;
 }
 .DailyWeather .dailyItem .icon.active {
-	color: #ef486f;
+	color: var(--accent-color);
 }
 .DailyWeather .dailyItem .temp {
 	padding: 0.5rem 0;
@@ -388,7 +394,7 @@ nav {
 	transition: all 0.5s ease-out;
 }
 nav.show {
-	bottom: 1rem;
+	bottom: 1.25rem;
 	background-position: center;
 	background-blend-mode: overlay;
 	border-radius: 2rem;
@@ -397,7 +403,7 @@ nav button.button {
 	height: 3.5rem;
 	width: 3.5rem;
 	font-size: 2rem;
-	background-color: #ef486f;
+	background-color: var(--accent-color);
 }
 
 .openBtn {
@@ -406,12 +412,13 @@ nav button.button {
 	left: 50%;
 	width: 3rem;
 	height: 3rem;
-	padding-top: 0.5rem;
+	padding-top: 0.1rem;
 	background-color: aliceblue;
 	border-style: none;
 	border-radius: 50%;
-	font-size: 1rem;
-	color: #ef486f;
+	font-size: 1.5rem;
+	outline: none;
+	color: var(--accent-color);
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
 	display: -webkit-box;
@@ -424,7 +431,7 @@ nav button.button {
 	-ms-flex-pack: center;
 	justify-content: center;
 }
-.openBtn i {
+.openBtn svg {
 	-webkit-transition: -webkit-transform 0.2s ease-out;
 	transition: -webkit-transform 0.2s ease-out;
 	transition: transform 0.2s ease-out;
@@ -436,32 +443,53 @@ nav button.button {
 	-ms-flex-align: end;
 	align-items: flex-end;
 }
-.openBtn.show i {
+.openBtn.show svg {
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
 .rain {
+	--accent-color: #ef476f;
 	background-color: rgba(34, 95, 145, 0.85);
-	background-image: url('../img/rain.jpg');
 }
 
 .snow {
-	background-color: rgba(29, 98, 103, 0.85);
-	background-image: url('../img/snow.jpg');
+	--accent-color: #ef476f;
+	background-color: rgba(20, 85, 90, 0.85);
 }
 
 .night {
+	--accent-color: #f77f00;
 	background-color: rgba(50, 23, 115, 0.85);
-	background-image: url('../img/night.jpg');
 }
 
 .fog {
+	--accent-color: #f77f00;
 	background-color: rgba(77, 91, 88, 0.85);
-	background-image: url('../img/fog.jpg');
 }
 
 .sun {
-	background-color: rgba(64, 64, 64, 0.85);
-	background-image: url('../img/sun.jpg');
+	--accent-color: #ef476f;
+	background-color: rgba(70, 70, 70, 0.75);
+}
+
+.spin {
+	animation: spin 1s ease;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.success {
+	color: seagreen;
+}
+
+.error {
+	color: crimson;
 }
