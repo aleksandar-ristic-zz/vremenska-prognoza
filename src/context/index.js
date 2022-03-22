@@ -21,11 +21,13 @@ const newMessage = {
 }
 
 export const AppProvider = ({ children }) => {
+	// state
 	const [message, setMessage] = useState(newMessage)
 	const [location, setLocation] = useState(newLocation)
 	const [unit, setUnit] = useState('metric')
 	const [searchText, setSearchText] = useState('')
 
+	// fetching hooks
 	const { error: errorCords, coords, handleFetchCoords } = useFetchCoords()
 
 	const {
@@ -67,24 +69,7 @@ export const AppProvider = ({ children }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location])
 
-	//* init func
-	const initApp = useCallback(() => {
-		const savedLocation = getHomeLocation()
-
-		if (savedLocation) {
-			const locObj = JSON.parse(savedLocation)
-			setLocation(locObj)
-			setMessage({
-				type: 'success',
-				message: `Home location ${locObj.name} found.`
-			})
-		} else {
-			getGeoWeather()
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getGeoWeather, location, unit])
-
+	//* stores location in localStorage
 	const setHomeWeather = () => {
 		if (location.lat && location.lon) {
 			setHomeLocation(location)
@@ -151,6 +136,25 @@ export const AppProvider = ({ children }) => {
 		}
 	}
 
+	//* init function
+	const initApp = useCallback(() => {
+		const savedLocation = getHomeLocation()
+
+		if (savedLocation) {
+			const locObj = JSON.parse(savedLocation)
+			setLocation(locObj)
+			setMessage({
+				type: 'success',
+				message: `Home location ${locObj.name} found.`
+			})
+		} else {
+			getGeoWeather()
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [getGeoWeather, location, unit])
+
+	//* sets messages
 	useEffect(() => {
 		if (errorCords || errorData) {
 			setMessage({
@@ -160,6 +164,7 @@ export const AppProvider = ({ children }) => {
 		}
 	}, [errorCords, errorData])
 
+	//* calls open weather API
 	useEffect(() => {
 		if (location.lat && location.lon) return
 		initApp()

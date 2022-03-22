@@ -10,6 +10,7 @@ export const useFetchWeather = urlParams => {
 
 	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
 
+	// reverse search, by lat and lon returns location name
 	const reverseUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${REACT_APP_WEATHER_API_KEY}`
 
 	const fetchWeather = useCallback(async () => {

@@ -24,12 +24,14 @@ export const getHomeLocation = () => localStorage.getItem('defwl')
 export const setHomeLocation = location =>
 	localStorage.setItem('defwl', JSON.stringify(location))
 
+//* checks if text has 2 or more spaces, and cleans that
 export const cleanText = text => {
 	const regex = / {2,}/g
 	const entryText = text.replaceAll(regex, ' ').trim()
 	return entryText
 }
 
+//* capitalizes first letter in a string
 export const toProperCase = text => {
 	const words = text.split(' ')
 	const properWords = words.map(word => {
@@ -39,17 +41,20 @@ export const toProperCase = text => {
 	return properWords.join(' ')
 }
 
+//* parses given date into day in a week Mon, Tue...
 export const getDay = date => {
 	const fixDate = parseInt(date + '000')
 	const day = format(new Date(fixDate), 'ccc')
 	return day
 }
 
+//* parses given date into full date Tuesday, March 22nd 2022
 export const getFullDate = () => {
 	const dateObj = format(new Date(), 'PPPP')
 	return dateObj
 }
 
+//* parses given icon code into string usable as class, or img
 export const getWeatherClass = icon => {
 	const firstTwoChars = icon.slice(0, 2)
 	const lastChar = icon.slice(2)
@@ -74,6 +79,7 @@ export const getWeatherClass = icon => {
 	return weatherClass
 }
 
+//* parses icon code into font awesome icon
 export const iconToFontAwesome = icon => {
 	const firstTwoChars = icon.slice(0, 2)
 	const lastChar = icon.slice(2)
