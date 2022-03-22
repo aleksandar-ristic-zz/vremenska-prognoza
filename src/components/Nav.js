@@ -15,6 +15,7 @@ export const Nav = ({ show }) => {
 			style={{ backgroundImage: `url(/img/${weather}.jpg)` }}
 		>
 			<Button
+				id='currLocation'
 				classes='button'
 				title='Get Location'
 				ariaLabel='Gives current weather forecast for this location'
@@ -22,6 +23,7 @@ export const Nav = ({ show }) => {
 				handleFunction={getGeoWeather}
 			/>
 			<Button
+				id='saveLocation'
 				classes='button'
 				title='Save Location'
 				ariaLabel='Save your current location as home location'
@@ -29,6 +31,7 @@ export const Nav = ({ show }) => {
 				handleFunction={setHomeWeather}
 			/>
 			<Button
+				id='homeLocation'
 				classes='button'
 				title='Home Location'
 				ariaLabel='Current weather forecast for your home location'

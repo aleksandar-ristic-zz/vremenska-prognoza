@@ -17,8 +17,13 @@ const newLocation = {
 	lon: null
 }
 
+const newMessage = {
+	type: 'error',
+	message: ''
+}
+
 export const AppProvider = ({ children }) => {
-	const [message, setMessage] = useState({ type: 'error', message: '' })
+	const [message, setMessage] = useState(newMessage)
 	const [location, setLocation] = useState(newLocation)
 	const [unit, setUnit] = useState('metric')
 	const [searchText, setSearchText] = useState('')
@@ -56,7 +61,7 @@ export const AppProvider = ({ children }) => {
 
 		//* nav turned off
 		if (!navigator.geolocation) {
-			setMessage({ type: 'error', message: 'Geolocation not supported' })
+			setMessage({ type: 'error', message: 'Please turn on geolocation.' })
 			return
 		}
 
@@ -66,22 +71,45 @@ export const AppProvider = ({ children }) => {
 
 	const getHomeWeather = useCallback(
 		e => {
+			// check in local storage
 			const savedLocation = getHomeLocation()
 
-			if (!savedLocation && !e) return getGeoWeather()
-			if (!savedLocation && e.type === 'click') {
-				setMessage({
-					type: 'error',
-					message:
-						'No home location saved.Please save your home location first.'
-				})
-			}
-			if (savedLocation) {
+			// if saved loc and either clicked home or init app
+			if (
+				(savedLocation && !e) ||
+				(savedLocation && e?.id === 'homeLocation')
+			) {
 				const locObj = JSON.parse(savedLocation)
 				setLocation(locObj)
+				setMessage({
+					type: 'success',
+					message: `Home location ${locObj.name} found.`
+				})
+			}
+
+			// if no saved loc but init app or clicked current loc
+			if ((!savedLocation && !e) || e?.id === 'currLocation')
+				return getGeoWeather()
+
+			if (e?.id === 'refresh') {
+				setLocation(newLocation)
+				setMessage({
+					type: 'success',
+					message: `Location refreshed.`
+				})
+				return
+			}
+
+			// no home loc but home clicked
+			if (!savedLocation && e?.id === 'homeLocation') {
+				setMessage({
+					type: 'error',
+					message: `No home location.\n Please save home location first`
+				})
+				return
 			}
 		},
-		[getGeoWeather, location]
+		[getGeoWeather, location, unit]
 	)
 
 	const setHomeWeather = () => {
@@ -96,6 +124,7 @@ export const AppProvider = ({ children }) => {
 
 	const toggleUnit = () => {
 		setUnit(prevUnit => (prevUnit === 'metric' ? 'imperial' : 'metric'))
+		setMessage({ type: 'success', message: `Changed to degrees ${unit}` })
 	}
 
 	const submitNewLocation = async e => {
@@ -104,6 +133,10 @@ export const AppProvider = ({ children }) => {
 
 		if (!searchableText.length) return
 		setSearchText(searchableText)
+	}
+
+	const resetMessage = () => {
+		setMessage(newMessage)
 	}
 
 	useEffect(() => {
@@ -128,7 +161,7 @@ export const AppProvider = ({ children }) => {
 				unit,
 				coords,
 				weatherData,
-				setMessage,
+				resetMessage,
 				getGeoWeather,
 				getHomeWeather,
 				setHomeWeather,

@@ -1,18 +1,25 @@
 import { useEffect } from 'react'
+import { useAppContext } from '../../context'
 
-const Message = ({ message, setMessage }) => {
+const Message = () => {
+	const { message, resetMessage } = useAppContext()
+
 	useEffect(() => {
-		if (message) {
+		if (message.message) {
 			const timer = setTimeout(() => {
-				setMessage({})
+				resetMessage()
 			}, 5000)
 
-			return clearTimeout(timer)
+			return () => {
+				clearTimeout(timer)
+			}
 		}
-	})
+	}, [message])
 
 	return (
-		message && <p className={`message ${message.type}`}>{message.message}</p>
+		message.message && (
+			<p className={`message ${message.type}`}>{message.message}</p>
+		)
 	)
 }
 

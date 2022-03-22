@@ -22,12 +22,11 @@ import {
 export const getHomeLocation = () => localStorage.getItem('defwl')
 
 export const setHomeLocation = location =>
-	localStorage.setItem(JSON.stringify(location))
+	localStorage.setItem('defwl', JSON.stringify(location))
 
 export const cleanText = text => {
 	const regex = / {2,}/g
 	const entryText = text.replaceAll(regex, ' ').trim()
-
 	return entryText
 }
 
@@ -40,15 +39,14 @@ export const toProperCase = text => {
 	return properWords.join(' ')
 }
 
-export const getDay = () => {
-	const dateObj = format(new Date(), 'ccc')
-
-	return dateObj
+export const getDay = date => {
+	const fixDate = parseInt(date + '000')
+	const day = format(new Date(fixDate), 'ccc')
+	return day
 }
 
 export const getFullDate = () => {
 	const dateObj = format(new Date(), 'PPPP')
-
 	return dateObj
 }
 

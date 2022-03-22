@@ -11,6 +11,7 @@ export const Header = () => {
 					Unesite novu lokaciju
 				</label>
 				<Button
+					id='searchButton'
 					classes='searchBar__button'
 					title='Submit location'
 					ariaLabel='Enter zip code, state, or city name to find out weather'
@@ -27,6 +28,7 @@ export const Header = () => {
 				/>
 			</div>
 			<Button
+				id='toggle'
 				classes='button'
 				title='Toggle measurement units, degrees'
 				ariaLabel='Toggle between celsius and fahrenheit'

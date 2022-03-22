@@ -5,7 +5,7 @@ import { useAppContext } from './context'
 import { getWeatherClass } from './utils'
 
 function App() {
-	const { weatherData, loading, message, setMessage } = useAppContext()
+	const { weatherData, loading } = useAppContext()
 	useEffect(() => {
 		document.body.style.backgroundImage = 'url(/img/bg_main.jpg)'
 	}, [])
@@ -22,7 +22,7 @@ function App() {
 			style={{ backgroundImage: `url(/img/${weather}.jpg)` }}
 		>
 			<h1 className='offscreen'>Weather Forecast</h1>
-			<Message message={message} setMessage={setMessage} />
+			<Message />
 			<Header />
 			<Location />
 			<Current />

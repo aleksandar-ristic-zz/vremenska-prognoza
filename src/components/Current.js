@@ -24,11 +24,12 @@ export const Current = () => {
 				</div>
 				<div className='desc'>{toProperCase(weather[0].description)}</div>
 				<p className='temp'>
-					feels {Math.round(feels_like)}
+					<span>feels</span> {Math.round(feels_like)}
 					{degrees}
 				</p>
 
 				<Button
+					id='refresh'
 					classes='button'
 					title='Click for the most current foreacst'
 					ariaLabel='Info about most current weather forecast'

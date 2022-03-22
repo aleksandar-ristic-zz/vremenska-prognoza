@@ -259,7 +259,7 @@ header .searchBar__button:focus ~ .searchBar__text {
 	transition: all 0.5s cubic-bezier(0, 0.11, 0.35, 2);
 }
 
-.location {
+.Location {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -274,12 +274,12 @@ header .searchBar__button:focus ~ .searchBar__text {
 	-ms-flex-direction: column;
 	flex-direction: column;
 }
-.location__name {
+.Location__name {
 	font-size: 2.5rem;
 	font-weight: 700;
 	color: aliceblue;
 }
-.location__date {
+.Location__date {
 	font-size: 1.5rem;
 	font-weight: 300;
 	color: #d9d9d9;
@@ -309,13 +309,20 @@ header .searchBar__button:focus ~ .searchBar__text {
 	font-size: 2rem;
 }
 .CurrentWeather .desc {
-	font-weight: 300;
+	padding-top: 0.5rem;
+	font-size: 1.15rem;
+	font-weight: 400;
 }
 .CurrentWeather .temp {
 	padding: 1rem 0 5rem;
-	font-size: 1.25rem;
+	font-size: 1.35rem;
 	color: #d9d9d9;
 }
+
+.CurrentWeather .temp span {
+	font-size: 1rem;
+}
+
 .CurrentWeather button {
 	font-size: 1.875rem;
 	color: var(--accent-color);
@@ -327,7 +334,7 @@ header .searchBar__button:focus ~ .searchBar__text {
 	margin: auto;
 	padding-bottom: 3rem;
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(8, 1fr);
 	gap: 1.55rem;
 	overflow-x: auto;
 }
@@ -352,7 +359,7 @@ header .searchBar__button:focus ~ .searchBar__text {
 .DailyWeather .dailyItem .icon {
 	font-size: 1.75rem;
 }
-.DailyWeather .dailyItem .icon.active {
+.DailyWeather .dailyItem.active {
 	color: var(--accent-color);
 }
 .DailyWeather .dailyItem .temp {
@@ -486,10 +493,22 @@ nav button.button {
 	}
 }
 
+.message {
+	position: absolute;
+	top: 25%;
+	left: 0.5rem;
+	padding: 0.5rem;
+	width: calc(100% - 1rem);
+	background-color: rgba(77, 91, 88, 0.75);
+	border-radius: 0 0.5rem 0.5rem 0;
+}
+
 .success {
-	color: seagreen;
+	color: #06d6a0;
+	border-left: 0.5rem solid #06d6a0;
 }
 
 .error {
-	color: crimson;
+	color: #dc143c;
+	border-left: 0.5rem solid #dc143c;
 }

@@ -3,11 +3,7 @@ import { useAppContext } from '../context'
 import { getFullDate } from '../utils'
 
 export const Location = () => {
-	const { weatherData, loading } = useAppContext()
-
-	if (!weatherData || loading) {
-		return <section className='location fade-in'></section>
-	}
+	const { weatherData } = useAppContext()
 
 	const { name } = weatherData
 	const date = getFullDate()
@@ -17,9 +13,9 @@ export const Location = () => {
 			<a href='#location' className='skip-link'>
 				Jump to Location
 			</a>
-			<section id='location' className='location fade-in'>
-				<h2 className='location__name'>{name}</h2>
-				<h3 className='location__date'>{date}</h3>
+			<section id='location' className='Location fade-in'>
+				<h2 className='Location__name'>{name}</h2>
+				<h3 className='Location__date'>{date}</h3>
 			</section>
 		</>
 	)

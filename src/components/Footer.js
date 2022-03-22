@@ -9,6 +9,7 @@ export const Footer = () => {
 	return (
 		<>
 			<Button
+				id='openBtn'
 				classes={`openBtn fade-in ${openNav ? 'show' : ''}`}
 				title='Opens app options'
 				aria-label='Opens useful options like home location and save location'
