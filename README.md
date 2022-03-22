@@ -3,6 +3,8 @@
 Weather forecast app, uses [openweathermap]('https://openweathermap.org/api')
 API for data. Frontend made in ReactJS.
 
+[Night Theme]('https://github.com/aleksandar-ristic/vremenska-prognoza/blob/master/weatherly_app.png')
+
 ## Technology used
 
 Nothing fancy, just basics.
@@ -48,9 +50,9 @@ sudo npm i && npm start
   - useCallback
 - Custom hooks
   - useFetchWeather
-    - Gets weather data and location name
+    -- Gets weather data and location name
   - useFetchCoords
-    - Gets latitude and longitude based on location name or zip code
+    -- Gets latitude and longitude based on location name or zip code
 - Scss and css for visual upgrade of data
 - HTML as apps base, which holds everything
 
@@ -58,3 +60,4 @@ sudo npm i && npm start
 
 Thanks to openweather for being free and allowing so much, and dribble for
 giving me an idea.
+Cannot publish as openweather uses htttp, so app cannot make fetch calls
