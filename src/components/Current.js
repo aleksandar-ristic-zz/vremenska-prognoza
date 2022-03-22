@@ -4,7 +4,7 @@ import { IoMdRefresh } from 'react-icons/io'
 import { iconToFontAwesome, toProperCase } from '../utils'
 
 export const Current = () => {
-	const { weatherData, unit, getHomeWeather } = useAppContext()
+	const { weatherData, unit, handleLocation } = useAppContext()
 
 	const { temp, feels_like, weather } = weatherData.current
 	const degrees = unit === 'metric' ? '°c' : '°f'
@@ -34,7 +34,7 @@ export const Current = () => {
 					title='Click for the most current foreacst'
 					ariaLabel='Info about most current weather forecast'
 					element={<IoMdRefresh />}
-					handleFunction={getHomeWeather}
+					handleFunction={handleLocation}
 				/>
 			</section>
 		</>

@@ -1,12 +1,24 @@
-import React from 'react'
+import { useRef, useEffect } from 'react'
 import Button from './parts/Button'
 import { FaExchangeAlt } from 'react-icons/fa'
 import { HiSearch } from 'react-icons/hi'
+import { useAppContext } from '../context'
 
 export const Header = () => {
+	const { submitNewLocation, toggleUnit, searchText, setSearchText } =
+		useAppContext()
+
+	const inputRef = useRef()
+
+	useEffect(() => {
+		if (searchText) {
+			inputRef.current.focus()
+		}
+	}, [searchText])
+
 	return (
 		<header className='fade-in'>
-			<div className='searchBar'>
+			<form className='searchBar' onSubmit={e => submitNewLocation(e)}>
 				<label htmlFor='searchBar__text' className='offscreen'>
 					Unesite novu lokaciju
 				</label>
@@ -25,14 +37,18 @@ export const Header = () => {
 					size='40'
 					autoComplete='off'
 					placeholder='Name or zip code'
+					value={searchText}
+					onChange={({ target }) => setSearchText(target.value)}
+					ref={inputRef}
 				/>
-			</div>
+			</form>
 			<Button
 				id='toggle'
 				classes='button'
 				title='Toggle measurement units, degrees'
 				ariaLabel='Toggle between celsius and fahrenheit'
 				element={<FaExchangeAlt />}
+				handleFunction={toggleUnit}
 			/>
 		</header>
 	)

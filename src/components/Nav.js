@@ -4,8 +4,7 @@ import { useAppContext } from '../context'
 import { getWeatherClass } from '../utils'
 
 export const Nav = ({ show }) => {
-	const { weatherData, setHomeWeather, getHomeWeather, getGeoWeather } =
-		useAppContext()
+	const { weatherData, setHomeWeather, handleLocation } = useAppContext()
 
 	const weather = getWeatherClass(weatherData.current.weather[0].icon)
 
@@ -20,7 +19,7 @@ export const Nav = ({ show }) => {
 				title='Get Location'
 				ariaLabel='Gives current weather forecast for this location'
 				element={<FaMapMarkedAlt />}
-				handleFunction={getGeoWeather}
+				handleFunction={handleLocation}
 			/>
 			<Button
 				id='saveLocation'
@@ -36,7 +35,7 @@ export const Nav = ({ show }) => {
 				title='Home Location'
 				ariaLabel='Current weather forecast for your home location'
 				element={<FaHome />}
-				handleFunction={getHomeWeather}
+				handleFunction={handleLocation}
 			/>
 		</nav>
 	)

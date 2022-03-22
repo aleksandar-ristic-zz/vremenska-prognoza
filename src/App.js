@@ -6,6 +6,7 @@ import { getWeatherClass } from './utils'
 
 function App() {
 	const { weatherData, loading } = useAppContext()
+
 	useEffect(() => {
 		document.body.style.backgroundImage = 'url(/img/bg_main.jpg)'
 	}, [])

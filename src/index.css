@@ -508,6 +508,10 @@ nav button.button {
 	animation: spin 1s ease;
 }
 
+.wait {
+	animation: spin 7.5s infinite linear;
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);
@@ -525,6 +529,23 @@ nav button.button {
 	width: calc(100% - 1rem);
 	background-color: rgba(77, 91, 88, 0.75);
 	border-radius: 0 0.5rem 0.5rem 0;
+	animation: message 5s forwards ease-in-out;
+}
+
+@keyframes message {
+	0% {
+		opacity: 0;
+		transform: translateX(-1000px);
+	}
+	10%,
+	90% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
 }
 
 .success {

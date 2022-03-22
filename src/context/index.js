@@ -10,13 +10,11 @@ import { useFetchCoords } from '../hooks/use-fetch-coords'
 import { useFetchWeather } from '../hooks/use-fetch-weather'
 
 const AppContext = createContext()
-
 const newLocation = {
 	name: 'Location',
 	lat: null,
 	lon: null
 }
-
 const newMessage = {
 	type: 'error',
 	message: ''
@@ -28,10 +26,7 @@ export const AppProvider = ({ children }) => {
 	const [unit, setUnit] = useState('metric')
 	const [searchText, setSearchText] = useState('')
 
-	const { error: errorCords, coords } = useFetchCoords(
-		searchText,
-		location.unit
-	)
+	const { error: errorCords, coords, handleFetchCoords } = useFetchCoords()
 
 	const {
 		loading,
@@ -112,9 +107,11 @@ export const AppProvider = ({ children }) => {
 		const searchableText = cleanText(searchText)
 
 		if (!searchableText.length) return
-		setSearchText(searchableText)
+		const locObj = await handleFetchCoords({ searchableText, unit })
 
-		console.log(coords)
+		if (locObj) {
+			setLocation(locObj)
+		}
 	}
 
 	const resetMessage = () => {
@@ -175,9 +172,11 @@ export const AppProvider = ({ children }) => {
 				message,
 				unit,
 				coords,
+				searchText,
 				weatherData,
 				resetMessage,
 				getGeoWeather,
+				setSearchText,
 				handleLocation,
 				setHomeWeather,
 				toggleUnit,
