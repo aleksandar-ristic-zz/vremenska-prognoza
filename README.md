@@ -3,7 +3,7 @@
 Weather forecast app, uses [openweathermap]('https://openweathermap.org/api')
 API for data. Frontend made in ReactJS.
 
-![Night Theme]('https://raw.githubusercontent.com/aleksandar-ristic/vremenska-prognoza/master/weatherly_app.png')
+![Night Theme](/weatherly_app.png)
 
 ## Technology used
 
