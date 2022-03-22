@@ -250,6 +250,11 @@ header .searchBar__button {
 	cursor: pointer;
 	line-height: 100%;
 }
+
+header .searchBar__button svg {
+	transform: translateY(1.5px);
+}
+
 header .searchBar__button:focus ~ .searchBar__text {
 	width: 100%;
 	background-color: transparent;
@@ -306,10 +311,10 @@ header .searchBar__button:focus ~ .searchBar__text {
 	font-size: 4.5rem;
 }
 .CurrentWeather .icon {
-	font-size: 2rem;
+	padding-top: 0.5rem;
+	font-size: 2.2rem;
 }
 .CurrentWeather .desc {
-	padding-top: 0.5rem;
 	font-size: 1.15rem;
 	font-weight: 400;
 }
@@ -327,6 +332,10 @@ header .searchBar__button:focus ~ .searchBar__text {
 	font-size: 1.875rem;
 	color: var(--accent-color);
 	background-color: aliceblue;
+}
+
+.CurrentWeather button svg {
+	transform: translateY(1.5px);
 }
 
 .DailyWeather {
@@ -355,21 +364,36 @@ header .searchBar__button:focus ~ .searchBar__text {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
+	text-shadow: 1px 1px rgba(220, 220, 220, 0.2);
 }
-.DailyWeather .dailyItem .icon {
-	font-size: 1.75rem;
-}
-.DailyWeather .dailyItem.active {
-	color: var(--accent-color);
-}
+
 .DailyWeather .dailyItem .temp {
 	padding: 0.5rem 0;
 	color: #d9d9d9;
 	font-size: 1rem;
 }
 .DailyWeather .dailyItem .day {
-	font-weight: 400;
+	padding-top: 0.25rem;
+	font-weight: 500;
 }
+
+.DailyWeather .dailyItem .icon {
+	font-size: 1.95rem;
+}
+
+.DailyWeather .dailyItem.active {
+	color: var(--accent-color);
+	text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.DailyWeather .dailyItem.active .temp {
+	color: aliceblue;
+}
+
+.DailyWeather .dailyItem.active .day {
+	font-weight: 700;
+}
+
 @media only screen and (min-width: 1024px) {
 	.DailyWeather {
 		margin-bottom: 2rem;
@@ -476,8 +500,8 @@ nav button.button {
 }
 
 .sun {
-	--accent-color: #ef476f;
-	background-color: rgba(70, 70, 70, 0.75);
+	--accent-color: #d62828;
+	background-color: rgba(24, 83, 87, 0.85);
 }
 
 .spin {

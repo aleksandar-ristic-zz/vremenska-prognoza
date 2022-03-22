@@ -18,11 +18,11 @@ export const Current = () => {
 
 			<section id='current' className='CurrentWeather fade-in'>
 				<div className='icon'>{weatherIcon}</div>
+				<div className='desc'>{toProperCase(weather[0].description)}</div>
 				<div className='currentTemp'>
 					{Math.round(temp)}
 					{degrees}
 				</div>
-				<div className='desc'>{toProperCase(weather[0].description)}</div>
 				<p className='temp'>
 					<span>feels</span> {Math.round(feels_like)}
 					{degrees}

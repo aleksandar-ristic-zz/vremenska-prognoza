@@ -66,7 +66,7 @@ export const getWeatherClass = icon => {
 	if (weatherLookup[firstTwoChars]) {
 		weatherClass = weatherLookup[firstTwoChars]
 	} else if (lastChar === 'd') {
-		weatherClass = 'clouds'
+		weatherClass = 'sun'
 	} else {
 		weatherClass = 'night'
 	}

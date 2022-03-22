@@ -6,8 +6,8 @@ export const useFetchWeather = urlParams => {
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState('')
 	const [weatherData, setWeatherData] = useState(null)
-
 	const { lat, lon, unit } = urlParams
+
 	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=${unit}&appid=${REACT_APP_WEATHER_API_KEY}`
 
 	const reverseUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${REACT_APP_WEATHER_API_KEY}`
@@ -34,13 +34,14 @@ export const useFetchWeather = urlParams => {
 		}
 
 		setLoading(false)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url])
 
 	useEffect(() => {
 		if (!lat || !lon) return
 		fetchWeather()
 	}, [fetchWeather, lat, lon])
-	console.log(weatherData)
 
 	return { loading, error, weatherData }
 }

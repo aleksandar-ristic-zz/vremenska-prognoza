@@ -43,16 +43,17 @@ export const AppProvider = ({ children }) => {
 		unit
 	})
 
+	//* uses browsers gps to find location
 	const getGeoWeather = useCallback(() => {
 		const geoSuccess = position => {
-			const newLocation = {
+			const gpsLocation = {
 				lat: position.coords.latitude,
 				lon: position.coords.longitude,
 				name: `Lat:${position.coords.latitude} Lon:${position.coords.longitude}`
 			}
 
-			setLocation(newLocation)
-			getHomeWeather()
+			setLocation(gpsLocation)
+			initApp()
 		}
 
 		const geoError = error => {
@@ -61,56 +62,33 @@ export const AppProvider = ({ children }) => {
 
 		//* nav turned off
 		if (!navigator.geolocation) {
-			setMessage({ type: 'error', message: 'Please turn on geolocation.' })
+			setMessage({ type: 'error', message: 'Please turn on location.' })
 			return
 		}
 
 		//* nav promise to get position
 		navigator.geolocation.getCurrentPosition(geoSuccess, geoError)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location])
 
-	const getHomeWeather = useCallback(
-		e => {
-			// check in local storage
-			const savedLocation = getHomeLocation()
+	//* init func
+	const initApp = useCallback(() => {
+		const savedLocation = getHomeLocation()
 
-			// if saved loc and either clicked home or init app
-			if (
-				(savedLocation && !e) ||
-				(savedLocation && e?.id === 'homeLocation')
-			) {
-				const locObj = JSON.parse(savedLocation)
-				setLocation(locObj)
-				setMessage({
-					type: 'success',
-					message: `Home location ${locObj.name} found.`
-				})
-			}
+		if (savedLocation) {
+			const locObj = JSON.parse(savedLocation)
+			setLocation(locObj)
+			setMessage({
+				type: 'success',
+				message: `Home location ${locObj.name} found.`
+			})
+		} else {
+			getGeoWeather()
+		}
 
-			// if no saved loc but init app or clicked current loc
-			if ((!savedLocation && !e) || e?.id === 'currLocation')
-				return getGeoWeather()
-
-			if (e?.id === 'refresh') {
-				setLocation(newLocation)
-				setMessage({
-					type: 'success',
-					message: `Location refreshed.`
-				})
-				return
-			}
-
-			// no home loc but home clicked
-			if (!savedLocation && e?.id === 'homeLocation') {
-				setMessage({
-					type: 'error',
-					message: `No home location.\n Please save home location first`
-				})
-				return
-			}
-		},
-		[getGeoWeather, location, unit]
-	)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [getGeoWeather, location, unit])
 
 	const setHomeWeather = () => {
 		if (location.lat && location.lon) {
@@ -122,21 +100,58 @@ export const AppProvider = ({ children }) => {
 		}
 	}
 
+	//* toggle between degrees C and F
 	const toggleUnit = () => {
 		setUnit(prevUnit => (prevUnit === 'metric' ? 'imperial' : 'metric'))
 		setMessage({ type: 'success', message: `Changed to degrees ${unit}` })
 	}
 
+	//* handles search
 	const submitNewLocation = async e => {
 		e.preventDefault()
 		const searchableText = cleanText(searchText)
 
 		if (!searchableText.length) return
 		setSearchText(searchableText)
+
+		console.log(coords)
 	}
 
 	const resetMessage = () => {
 		setMessage(newMessage)
+	}
+
+	//* handle buttons onClick
+	const handleLocation = e => {
+		setLocation(newLocation)
+		const savedLocation = getHomeLocation()
+
+		if (e?.id === 'homeLocation') {
+			if (savedLocation) {
+				const locObj = JSON.parse(savedLocation)
+				setLocation(locObj)
+				setMessage({
+					type: 'success',
+					message: `Home location ${locObj.name} found.`
+				})
+			} else {
+				setMessage({
+					type: 'error',
+					message: `No home location.\n Please save home location first`
+				})
+			}
+		}
+
+		if (e?.id === 'currLocation') {
+			getGeoWeather()
+		}
+
+		if (e?.id === 'refresh') {
+			setMessage({
+				type: 'success',
+				message: `Location refreshed.`
+			})
+		}
 	}
 
 	useEffect(() => {
@@ -150,8 +165,8 @@ export const AppProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (location.lat && location.lon) return
-		getHomeWeather()
-	}, [getHomeWeather, location])
+		initApp()
+	}, [location, initApp])
 
 	return (
 		<AppContext.Provider
@@ -163,7 +178,7 @@ export const AppProvider = ({ children }) => {
 				weatherData,
 				resetMessage,
 				getGeoWeather,
-				getHomeWeather,
+				handleLocation,
 				setHomeWeather,
 				toggleUnit,
 				submitNewLocation
